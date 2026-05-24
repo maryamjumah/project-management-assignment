@@ -1,24 +1,15 @@
-import React, { useState, useEffect } from "react";
-import TaskTable from "../TaskTable";
-import useLoading from "../hooks/useLoading";
-
-export default function Dashboard() {
-  const [tasks, setTasks] = useState([]);
-  const { loading, start, stop } = useLoading();
-
-  useEffect(() => {
-    start();
-    // Simulate fetch
-    setTimeout(() => {
-      setTasks([{ id: 1, title: "Test Task", description: "Placeholder" }]);
-      stop();
-    }, 1000);
-  }, []);
-
-  return (
-    <div>
-      <h1>Dashboard</h1>
+return (
+  <div>
+    <h1>Dashboard</h1>
+    {tasks.length === 0 ? (
+      <div>
+        <p>No tasks match your filters</p>
+        <button onClick={() => setTasks([{ id: 1, title: "Test Task", description: "Placeholder" }])}>
+          Clear filters
+        </button>
+      </div>
+    ) : (
       <TaskTable tasks={tasks} isLoading={loading} />
-    </div>
-  );
-}
+    )}
+  </div>
+);
